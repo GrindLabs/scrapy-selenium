@@ -1,2 +1,2 @@
-scrapy>=1.0.0
-selenium>=3.9.0
+scrapy~=2.5.1
+selenium~=4.0.0
