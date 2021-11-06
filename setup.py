@@ -23,7 +23,7 @@ def get_requirements(source):
 
     install_reqs = parse_requirements(filename=source, session=PipSession())
 
-    return [str(ir.req) for ir in install_reqs]
+    return [str(ir.requirement) for ir in install_reqs]
 
 
 setup(
