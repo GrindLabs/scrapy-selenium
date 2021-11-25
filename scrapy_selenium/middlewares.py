@@ -1,6 +1,4 @@
 """This module contains the ``SeleniumMiddleware`` scrapy middleware"""
-
-import os
 import zipfile
 from importlib import import_module
 
@@ -16,8 +14,8 @@ from .http import SeleniumRequest
 class SeleniumMiddleware:
     """Scrapy middleware handling the requests using selenium"""
 
-    def __init__(self, 
-                 driver_name, 
+    def __init__(self,
+                 driver_name,
                  driver_executable_path,
                  browser_executable_path,
                  command_executor,
@@ -27,7 +25,7 @@ class SeleniumMiddleware:
                  proxy_port,
                  proxy_user,
                  proxy_pass
-        ):
+                 ):
         """Initialize the selenium webdriver
 
         Parameters
@@ -122,14 +120,14 @@ class SeleniumMiddleware:
                 ['blocking']
             );
             """ % (proxy_host, proxy_port, proxy_user, proxy_pass)
-            
+
             plugin_file = 'proxy_auth_plugin.zip'
 
             with zipfile.ZipFile(plugin_file, 'w') as zp:
                 zp.writestr('manifest.json', manifest_json)
                 zp.writestr('background.js', background_js)
 
-            driver_options.add_extensions(plugin_file)
+            driver_options.add_extension(plugin_file)
             driver_kwargs = {
                 'executable_path': driver_executable_path,
                 'options': driver_options
@@ -227,4 +225,3 @@ class SeleniumMiddleware:
     def spider_closed(self):
         """Shutdown the driver when spider is closed"""
         self.driver.quit()
-
